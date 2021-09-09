@@ -34,6 +34,7 @@ namespace NavigationControl
             // 
             // flowLayoutPanel
             // 
+            this.flowLayoutPanel.BackColor = System.Drawing.Color.Indigo;
             this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);

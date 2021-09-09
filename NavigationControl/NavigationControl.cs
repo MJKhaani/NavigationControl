@@ -15,17 +15,17 @@ namespace NavigationControl
 
 
         public List<NavigationItem> Items { get; set; }
-        public List<NavigationRootItemControl> rootItemControls { get; set; }= new List<NavigationRootItemControl>();
+        public List<NavigationRootItemControl> rootItemControls { get; set; } = new List<NavigationRootItemControl>();
         public NavigationControl(List<NavigationItem> items, bool rtl = false)
         {
             InitializeComponent();
             Items = items;
 
-            if(items != null && items.Count>0)
+            if (items != null && items.Count > 0)
             {
-                foreach(NavigationItem item in items)
+                foreach (NavigationItem item in items)
                 {
-                    var rootItem = new NavigationRootItemControl(item,rtl);
+                    var rootItem = new NavigationRootItemControl(item, rtl);
                     rootItem.NavigationItemClickedEvent += RootItem_NavigationItemClickedEvent;
                     //rootItem.Dock = DockStyle.Top;
                     flowLayoutPanel.Controls.Add(rootItem);
@@ -36,7 +36,10 @@ namespace NavigationControl
 
         private void RootItem_NavigationItemClickedEvent(object sender, NavigationItem args)
         {
-            if(Items.Contains(args))
+            foreach (NavigationRootItemControl itemControl in rootItemControls)
+                itemControl.Deselect(args);
+
+            if (Items.Contains(args))
             {
                 foreach (NavigationRootItemControl itemControl in rootItemControls)
                     if (itemControl.NavigationItem != args)

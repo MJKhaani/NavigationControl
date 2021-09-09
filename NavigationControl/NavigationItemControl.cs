@@ -13,6 +13,8 @@ namespace NavigationControl
         public delegate void NavigationItemClicked(object sender, NavigationItem args);
         public event NavigationItemClicked NavigationItemClickedEvent;
 
+        private bool _selected = false;
+
         public NavigationItem NavigationItem { get; set; }
         public NavigationItemControl(NavigationItem item, bool rtl = false)
         {
@@ -43,8 +45,19 @@ namespace NavigationControl
             this.pictureBox.Click += NavigationItemControl_Click;
         }
 
+        public void Deselect(NavigationItem selectedItem)
+        {
+            if (NavigationItem.Id != selectedItem.Id)
+            {
+                this.BackColor = System.Drawing.Color.Indigo;
+                _selected = false;
+            }
+        }
+
         private void NavigationItemControl_Click(object sender, EventArgs e)
         {
+            _selected = true;
+            this.BackColor = System.Drawing.Color.BlueViolet;
             NavigationItemClickedEvent?.Invoke(this, NavigationItem);
         }
 
@@ -55,7 +68,8 @@ namespace NavigationControl
 
         private void NavigationItemControl_MouseLeave(object sender, EventArgs e)
         {
-            this.BackColor = System.Drawing.Color.Indigo;
+            if(!_selected)
+                this.BackColor = System.Drawing.Color.Indigo;
         }
 
     }
